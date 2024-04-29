@@ -1,5 +1,5 @@
 import "./PageImages.css";
 function PageImages() {
-  return <div class="body">Page Images</div>;
+  return <div className="body">Page Images</div>;
 }
 export default PageImages;

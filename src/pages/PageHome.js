@@ -1,7 +1,7 @@
 import "./PageHome.css";
 function PageHome() {
   return (
-    <div class="body">
+    <div className="body">
       <h1>Page Accueil</h1>
     </div>
   );

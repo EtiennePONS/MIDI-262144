@@ -11,10 +11,10 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Play" element={<Play />} />
-          <Route path="/Medias" element={<Chansons />} />
-          <Route path="/Galerie" element={<Images />} />
+          <Route path="MIDI-262144/" element={<Home />} />
+          <Route path="MIDI-262144/Play" element={<Play />} />
+          <Route path="MIDI-262144/Medias" element={<Chansons />} />
+          <Route path="MIDI-262144/Galerie" element={<Images />} />
         </Routes>
       </BrowserRouter>
     </div>

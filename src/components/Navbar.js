@@ -2,76 +2,76 @@ import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 import image from "../logo/favicon.ico";
 
-const Navbar = () => {
+function Navbar() {
   return (
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-      <div class="container-fluid">
-        <NavLink to="/Play" end className="nav-link">
+    <nav className="navbar navbar-dark bg-dark fixed-top">
+      <div className="container-fluid">
+        <NavLink to="MIDI-262144/Play" end className="nav-link">
           <img
             src={image}
             alt="LOGO"
             width="50"
-            height="44"
-            class="d-inline-block align-text-top"
+            height="50"
+            className="d-inline-block align-text-top"
           />
         </NavLink>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasDarkNavbar"
           aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          class="offcanvas offcanvas-end text-bg-dark"
-          tabindex="-1"
+          className="offcanvas offcanvas-end text-bg-dark"
+          tabIndex="-1"
           id="offcanvasDarkNavbar"
           aria-labelledby="offcanvasDarkNavbarLabel"
         >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
               MIDI-262144
             </h5>
             <button
               type="button"
-              class="btn-close btn-close-white"
+              className="btn-close btn-close-white"
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             ></button>
           </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <div className="offcanvas-body">
+            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               {" "}
-              <li class="nav-item">
-                <NavLink to="/" end className="nav-link">
-                  <span class="nav-link">Home</span>
+              <li className="nav-item">
+                <NavLink to="MIDI-262144/" end className="nav-link">
+                  <span className="nav-link">Home</span>
                 </NavLink>
               </li>
-              <li class="nav-item">
-                <NavLink to="/Play" end className="nav-link">
-                  <span class="nav-link">Play</span>
+              <li className="nav-item">
+                <NavLink to="MIDI-262144/Play" end className="nav-link">
+                  <span className="nav-link">Play</span>
                 </NavLink>
               </li>
-              <li class="nav-item">
-                <NavLink to="/Medias" end className="nav-link">
-                  <span class="nav-link">Médias</span>
+              <li className="nav-item">
+                <NavLink to="MIDI-262144/Medias" end className="nav-link">
+                  <span className="nav-link">Médias</span>
                 </NavLink>
               </li>
-              <li class="nav-item">
-                <NavLink to="/Galerie" end className="nav-link">
-                  <span class="nav-link">Images</span>
+              <li className="nav-item">
+                <NavLink to="MIDI-262144/Galerie" end className="nav-link">
+                  <span className="nav-link">Images</span>
                 </NavLink>
               </li>
             </ul>
-            <form class="d-flex mt-3" role="search"></form>
+            <form className="d-flex mt-3" role="search"></form>
           </div>
         </div>
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;
