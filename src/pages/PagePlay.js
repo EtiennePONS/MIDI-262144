@@ -9,7 +9,7 @@ function PagePlay() {
   const [messageFromNavigator, setMessageFromNavigator] = useState("");
   const [chansonAAfficher, setChansonAAfficher] = useState([]);
   const [imageAAfficher, setImageAAfficher] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/midi-app-musicnotes.appspot.com/o/default.jpg?alt=media&token=3e002af3-0594-4765-bc1c-fca35caa6c19"
+    "https://firebasestorage.googleapis.com/v0/b/midi-app-musicnotes.appspot.com/o/default.pdf?alt=media&token=a85bee76-0912-43d1-aef0-48ae793b32e6"
   );
   let midiAccess = null;
 
@@ -60,25 +60,41 @@ function PagePlay() {
               let channel = (data[0] & 0xf) + 1; // Status converti en hexadecimal pour en déduire le canal MIDI et j'ajoute 1 pour me situer entre (1-16) au lieu de (0-15).
               let programme = data[1] + 1;
               if (command === 0xc) {
-                // chanson = programme;
-                // console.log(
-                //   `Canal MIDI: ${channel}, Programme MIDI: ${programme}`
-                // );
-                const chansonRef = doc(
-                  database,
-                  "chansons",
-                  `${channel}-${programme}`
+                chanson = programme;
+                console.log(
+                  `Canal MIDI: ${channel}, Programme MIDI: ${programme}`
                 );
-                const getChanson = async () => {
-                  const morceau = await getDoc(chansonRef);
-                  if (morceau.exists()) {
-                    setChansonAAfficher(morceau.data());
-                    chanson = morceau.data().titre;
-                  } else {
-                    console.log("Pas de chanson, sur cette reference...");
+                // const chansonRef = doc(
+                //   database,
+                //   "chansons",
+                //   `${channel}-${programme}`
+                // );
+                const imageRef = ref(
+                  storage,
+                  `canal-${channel}/chanson-${programme}/chanson-${programme}.pdf`
+                );
+                // const getChanson = async () => {
+                //   const morceau = await getDoc(chansonRef);
+                //   if (morceau.exists()) {
+                //     setChansonAAfficher(morceau.data());
+                //     chanson = morceau.data().titre;
+                //   } else {
+                //     console.log("Pas de chanson, sur cette reference...");
+                //   }
+                // };
+                async function downloadAndSetImage() {
+                  try {
+                    const url = await getDownloadURL(imageRef);
+                    setImageAAfficher(url);
+                  } catch (error) {
+                    console.error(
+                      "Une erreur s'est produite lors du téléchargement de l'image :",
+                      error
+                    );
                   }
-                };
-                getChanson();
+                }
+                downloadAndSetImage();
+                // getChanson();
               }
             } else if (data.length === 3) {
               // console.log(data);
@@ -124,7 +140,7 @@ function PagePlay() {
                 }
                 const imageRef = ref(
                   storage,
-                  `${chanson}/${chanson}${note}.jpg`
+                  `canal-${channel}/chanson-${chanson}/chanson-${chanson}-${note}.pdf`
                 );
 
                 async function downloadAndSetImage() {
@@ -153,7 +169,7 @@ function PagePlay() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
+        {/* <div>
           <h1>{messageFromNavigator}</h1>
           <button onClick={reset}>RESET</button>
           <h6 className="h6">Titre: {chansonAAfficher.titre}</h6>
@@ -161,13 +177,14 @@ function PagePlay() {
           <h6 className="h6">
             Ch: {chansonAAfficher.canalMidi} Pgm: {chansonAAfficher.programMidi}
           </h6>
-        </div>
-        <img
+        </div> */}
+        {/* <img
           className="vignette"
           alt="vignette"
           src={chansonAAfficher.vignette}
-        />
-        <img className="prompteur" alt="Prompteur" src={imageAAfficher} />
+        /> */}
+        {/* <img className="prompteur" alt="Prompteur" src={imageAAfficher} /> */}
+        <object className="pdf" title="app/pdf" data={imageAAfficher}></object>
       </header>
     </div>
   );

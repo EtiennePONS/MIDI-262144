@@ -1,5 +1,4 @@
-import "./PageImages.css";
-function PageImages() {
-  return <div className="body">Page Images</div>;
+function PageImage() {
+  return <div></div>;
 }
-export default PageImages;
+export default PageImage;

@@ -12,7 +12,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="MIDI-262144/" element={<Home />} />
-          <Route path="MIDI-262144/Play" element={<Play />} />
+          <Route path="/MIDI-262144/Play" element={<Play />} />
           <Route path="MIDI-262144/Medias" element={<Chansons />} />
           <Route path="MIDI-262144/Galerie" element={<Images />} />
         </Routes>
