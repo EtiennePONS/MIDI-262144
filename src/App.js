@@ -5,14 +5,21 @@ import Chansons from "./pages/PageChansons";
 import Images from "./pages/PageImages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { useState } from "react";
+
 function App() {
+  const [chansonTitre, setChansonTitre] = useState("");
+  // console.log(chansonTitre);
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar theGivenTitle={chansonTitre} />
         <Routes>
           <Route path="MIDI-262144/" element={<Home />} />
-          <Route path="/MIDI-262144/Play" element={<Play />} />
+          <Route
+            path="/MIDI-262144/Play"
+            element={<Play modifyParentStateValue={setChansonTitre} />}
+          />
           <Route path="MIDI-262144/Medias" element={<Chansons />} />
           <Route path="MIDI-262144/Galerie" element={<Images />} />
         </Routes>

@@ -2,7 +2,7 @@ import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 import image from "../logo/favicon.ico";
 
-function Navbar() {
+function Navbar({ theGivenTitle }) {
   return (
     <nav className="navbar navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
@@ -15,6 +15,10 @@ function Navbar() {
             className="d-inline-block align-text-top"
           />
         </NavLink>
+        <span className="navbar-text fw-bold fs-4 text-uppercase">
+          {theGivenTitle}
+        </span>
+
         <button
           className="navbar-toggler"
           type="button"

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { database, storage } from "../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
-let chanson;
+let titreChanson;
 
-function PagePlay() {
+function PagePlay({ modifyParentStateValue }) {
   const [messageFromNavigator, setMessageFromNavigator] = useState("");
   const [chansonAAfficher, setChansonAAfficher] = useState([]);
   const [imageAAfficher, setImageAAfficher] = useState(
@@ -60,29 +60,31 @@ function PagePlay() {
               let channel = (data[0] & 0xf) + 1; // Status converti en hexadecimal pour en déduire le canal MIDI et j'ajoute 1 pour me situer entre (1-16) au lieu de (0-15).
               let programme = data[1] + 1;
               if (command === 0xc) {
-                chanson = programme;
-                console.log(
-                  `Canal MIDI: ${channel}, Programme MIDI: ${programme}`
-                );
-                // const chansonRef = doc(
-                //   database,
-                //   "chansons",
-                //   `${channel}-${programme}`
+                // console.log(
+                //   `Canal MIDI: ${channel}, Programme MIDI: ${programme}`
                 // );
-                const imageRef = ref(
-                  storage,
-                  `canal-${channel}/chanson-${programme}/chanson-${programme}.pdf`
+                const chansonRef = doc(
+                  database,
+                  "chansons",
+                  `${channel}-${programme}`
                 );
-                // const getChanson = async () => {
-                //   const morceau = await getDoc(chansonRef);
-                //   if (morceau.exists()) {
-                //     setChansonAAfficher(morceau.data());
-                //     chanson = morceau.data().titre;
-                //   } else {
-                //     console.log("Pas de chanson, sur cette reference...");
-                //   }
-                // };
+
+                const getChanson = async () => {
+                  const morceau = await getDoc(chansonRef);
+                  if (morceau.exists()) {
+                    setChansonAAfficher(morceau.data());
+                    titreChanson = morceau.data().titre;
+                    modifyParentStateValue(morceau.data().titre);
+                    downloadAndSetImage();
+                  } else {
+                    console.log("Pas de chanson, sur cette reference...");
+                  }
+                };
                 async function downloadAndSetImage() {
+                  const imageRef = ref(
+                    storage,
+                    `canal-${channel}/${titreChanson}/${titreChanson}.pdf`
+                  );
                   try {
                     const url = await getDownloadURL(imageRef);
                     setImageAAfficher(url);
@@ -93,8 +95,8 @@ function PagePlay() {
                     );
                   }
                 }
-                downloadAndSetImage();
-                // getChanson();
+                // downloadAndSetImage();
+                getChanson();
               }
             } else if (data.length === 3) {
               // console.log(data);
@@ -103,9 +105,9 @@ function PagePlay() {
 
               if (command === 0x9) {
                 let note = data[1] + 1; // j'ajoute 1 à deuxiemeOctet pour me situer entre (1-128) au lieu de (0-127).
-                console.log(
-                  `Canal MIDI: ${channel}, Chanson: ${chanson}  , Note MIDI: ${note}`
-                );
+                // console.log(
+                //   `Canal MIDI: ${channel}, Chanson: ${titreChanson}  , Note MIDI: ${note}`
+                // );
                 switch (note) {
                   case 25:
                     note = "C0";
@@ -140,7 +142,7 @@ function PagePlay() {
                 }
                 const imageRef = ref(
                   storage,
-                  `canal-${channel}/chanson-${chanson}/chanson-${chanson}-${note}.pdf`
+                  `canal-${channel}/${titreChanson}/${titreChanson}-${note}.pdf`
                 );
 
                 async function downloadAndSetImage() {
@@ -169,21 +171,24 @@ function PagePlay() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <div>
-          <h1>{messageFromNavigator}</h1>
-          <button onClick={reset}>RESET</button>
-          <h6 className="h6">Titre: {chansonAAfficher.titre}</h6>
-          <h6 className="h6">Artiste: {chansonAAfficher.artiste}</h6>
-          <h6 className="h6">
-            Ch: {chansonAAfficher.canalMidi} Pgm: {chansonAAfficher.programMidi}
-          </h6>
-        </div> */}
-        {/* <img
-          className="vignette"
-          alt="vignette"
-          src={chansonAAfficher.vignette}
-        /> */}
-        {/* <img className="prompteur" alt="Prompteur" src={imageAAfficher} /> */}
+        <div className="cartouche">
+          <dl className="row">
+            {/* <dt className="h6 col-sm-3">Titre:</dt>
+            <dd class="h6 col-sm-9">{chansonAAfficher.titre}</dd> */}
+            <dt className="h6 col-sm-3">Artiste:</dt>
+            <dd className="h6 col-sm-9">{chansonAAfficher.artiste}</dd>
+            <dt className="h6 col-sm-3">Date:</dt>
+            <dd className="h6 col-sm-9">{chansonAAfficher.dateDeSortie}</dd>
+            <dt className="h6 col-sm-3">Ch(1-16):</dt>
+            <dd className="h6 col-sm-9">{chansonAAfficher.canalMidi}</dd>
+            <dt className="h6 col-sm-3">Pgm(1-128):</dt>
+            <dd className="h6 col-sm-9">{chansonAAfficher.programMidi}</dd>
+          </dl>
+          {/* <h1>{messageFromNavigator}</h1>
+          <button onClick={reset}>RESET</button> */}
+        </div>
+        <img className="vignette" alt="" src={chansonAAfficher.vignette} />
+
         <object className="pdf" title="app/pdf" data={imageAAfficher}></object>
       </header>
     </div>
