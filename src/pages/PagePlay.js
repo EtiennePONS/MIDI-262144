@@ -9,7 +9,7 @@ function PagePlay({ modifyParentStateValue }) {
   const [messageFromNavigator, setMessageFromNavigator] = useState("");
   const [chansonAAfficher, setChansonAAfficher] = useState([]);
   const [imageAAfficher, setImageAAfficher] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/midi-app-musicnotes.appspot.com/o/default.pdf?alt=media&token=a85bee76-0912-43d1-aef0-48ae793b32e6"
+    "https://firebasestorage.googleapis.com/v0/b/midi-app-musicnotes.appspot.com/o/canal-1%2FTalk%2FTalk.pdf?alt=media&token=75367eb1-60d2-4986-981c-1ca4b36ff546"
   );
   let midiAccess = null;
 
@@ -182,7 +182,7 @@ function PagePlay({ modifyParentStateValue }) {
             <dt className="h6 col-sm-3">Ch(1-16):</dt>
             <dd className="h6 col-sm-9">{chansonAAfficher.canalMidi}</dd>
             <dt className="h6 col-sm-3">Pgm(1-128):</dt>
-            <dd className="h6 col-sm-9">{chansonAAfficher.programMidi}</dd>
+            <dd className="h6 col-sm-9"> {chansonAAfficher.programMidi}</dd>
           </dl>
           {/* <h1>{messageFromNavigator}</h1>
           <button onClick={reset}>RESET</button> */}
