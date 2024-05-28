@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/MIDI-262144/static/css/main.4ce60137.css",
+    "main.css": "/MIDI-262144/static/css/main.5cca7815.css",
     "main.js": "/MIDI-262144/static/js/main.eb1b3303.js",
     "static/media/favicon.ico": "/MIDI-262144/static/media/favicon.a88cfeb818a1ffc9754f.ico",
     "index.html": "/MIDI-262144/index.html",
-    "main.4ce60137.css.map": "/MIDI-262144/static/css/main.4ce60137.css.map",
+    "main.5cca7815.css.map": "/MIDI-262144/static/css/main.5cca7815.css.map",
     "main.eb1b3303.js.map": "/MIDI-262144/static/js/main.eb1b3303.js.map"
   },
   "entrypoints": [
-    "static/css/main.4ce60137.css",
+    "static/css/main.5cca7815.css",
     "static/js/main.eb1b3303.js"
   ]
 }
