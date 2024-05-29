@@ -15,6 +15,7 @@ function Navbar({ theGivenTitle }) {
             className="d-inline-block align-text-top"
           />
         </NavLink>
+
         <span className="navbar-text fw-bold fs-4 text-uppercase">
           {theGivenTitle}
         </span>

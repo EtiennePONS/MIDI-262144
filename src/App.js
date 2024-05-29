@@ -8,17 +8,27 @@ import Navbar from "./components/Navbar";
 import { useState } from "react";
 
 function App() {
-  const [chansonTitre, setChansonTitre] = useState("");
-  // console.log(chansonTitre);
+  const [chanson, setChanson] = useState([]);
+  const [image, setImage] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/midi-app-musicnotes.appspot.com/o/canal-1%2FTalk%2FTalk.pdf?alt=media&token=75367eb1-60d2-4986-981c-1ca4b36ff546"
+  );
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar theGivenTitle={chansonTitre} />
+        <Navbar theGivenTitle={chanson.titre} />
         <Routes>
           <Route path="MIDI-262144/" element={<Home />} />
           <Route
             path="/MIDI-262144/Play"
-            element={<Play modifyParentStateValue={setChansonTitre} />}
+            element={
+              <Play
+                modifyParentStateImage={setImage}
+                modifyParentStateValue={setChanson}
+                theGivenSong={chanson}
+                theGivenImage={image}
+              />
+            }
           />
           <Route path="MIDI-262144/Medias" element={<Chansons />} />
           <Route path="MIDI-262144/Galerie" element={<Images />} />

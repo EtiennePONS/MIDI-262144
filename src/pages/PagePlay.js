@@ -5,22 +5,18 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 let titreChanson;
 
-function PagePlay({ modifyParentStateValue }) {
+function PagePlay({
+  modifyParentStateValue,
+  modifyParentStateImage,
+  theGivenSong,
+  theGivenImage,
+}) {
   const [messageFromNavigator, setMessageFromNavigator] = useState("");
-  const [chansonAAfficher, setChansonAAfficher] = useState([]);
-  const [imageAAfficher, setImageAAfficher] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/midi-app-musicnotes.appspot.com/o/canal-1%2FTalk%2FTalk.pdf?alt=media&token=75367eb1-60d2-4986-981c-1ca4b36ff546"
-  );
   let midiAccess = null;
 
   useEffect(() => {
     setup();
   }, []);
-
-  function reset() {
-    setChansonAAfficher([]);
-    setImageAAfficher("");
-  }
 
   function setup() {
     if (window.navigator.requestMIDIAccess) {
@@ -72,9 +68,8 @@ function PagePlay({ modifyParentStateValue }) {
                 const getChanson = async () => {
                   const morceau = await getDoc(chansonRef);
                   if (morceau.exists()) {
-                    setChansonAAfficher(morceau.data());
                     titreChanson = morceau.data().titre;
-                    modifyParentStateValue(morceau.data().titre);
+                    modifyParentStateValue(morceau.data());
                     downloadAndSetImage();
                   } else {
                     console.log("Pas de chanson, sur cette reference...");
@@ -87,7 +82,7 @@ function PagePlay({ modifyParentStateValue }) {
                   );
                   try {
                     const url = await getDownloadURL(imageRef);
-                    setImageAAfficher(url);
+                    modifyParentStateImage(url);
                   } catch (error) {
                     console.error(
                       "Une erreur s'est produite lors du téléchargement de l'image :",
@@ -148,7 +143,7 @@ function PagePlay({ modifyParentStateValue }) {
                 async function downloadAndSetImage() {
                   try {
                     const url = await getDownloadURL(imageRef);
-                    setImageAAfficher(url);
+                    modifyParentStateImage(url);
                   } catch (error) {
                     console.error(
                       "Une erreur s'est produite lors du téléchargement de l'image :",
@@ -176,20 +171,20 @@ function PagePlay({ modifyParentStateValue }) {
             {/* <dt className="h6 col-sm-3">Titre:</dt>
             <dd class="h6 col-sm-9">{chansonAAfficher.titre}</dd> */}
             <dt className="h6 col-sm-3">Artiste:</dt>
-            <dd className="h6 col-sm-9">{chansonAAfficher.artiste}</dd>
+            <dd className="h6 col-sm-9">{theGivenSong.artiste}</dd>
             <dt className="h6 col-sm-3">Date:</dt>
-            <dd className="h6 col-sm-9">{chansonAAfficher.dateDeSortie}</dd>
+            <dd className="h6 col-sm-9">{theGivenSong.dateDeSortie}</dd>
             <dt className="h6 col-sm-3">Ch(1-16):</dt>
-            <dd className="h6 col-sm-9">{chansonAAfficher.canalMidi}</dd>
+            <dd className="h6 col-sm-9">{theGivenSong.canalMidi}</dd>
             <dt className="h6 col-sm-3">Pgm(1-128):</dt>
-            <dd className="h6 col-sm-9"> {chansonAAfficher.programMidi}</dd>
+            <dd className="h6 col-sm-9"> {theGivenSong.programMidi}</dd>
           </dl>
           {/* <h1>{messageFromNavigator}</h1>
           <button onClick={reset}>RESET</button> */}
         </div>
-        <img className="vignette" alt="" src={chansonAAfficher.vignette} />
+        <img className="vignette" alt="" src={theGivenSong.vignette} />
 
-        <object className="pdf" title="app/pdf" data={imageAAfficher}></object>
+        <object className="pdf" title="app/pdf" data={theGivenImage}></object>
       </header>
     </div>
   );
