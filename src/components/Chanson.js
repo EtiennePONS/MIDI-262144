@@ -1,6 +1,6 @@
 import "./Chanson.css";
 function Chanson({ chanson }) {
-  console.log(chanson);
+  //console.log(chanson);
   const handleModifyChanson = () => {
     console.log("handleModifyChanson");
   };
