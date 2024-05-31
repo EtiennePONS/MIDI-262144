@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import Chanson from "../components/Chanson";
 import "./PageChansons.css";
-import { setDoc, collection, getDocs, doc } from "firebase/firestore";
+import {
+  setDoc,
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { database } from "../firebase-config";
-import { get } from "firebase/database";
 
 function PageChansons() {
   const [chansons, setChansons] = useState([]);
-
   const [newArtiste, setNewArtiste] = useState("");
   const [newTitre, setNewTitre] = useState("");
   const [newDateDeSortie, setNewDateDeSortie] = useState("");
@@ -16,7 +20,10 @@ function PageChansons() {
   const [newProgramMidi, setNewProgramMidi] = useState(0);
 
   const chansonsCollectionRef = collection(database, "chansons");
-
+  const getChansons = async () => {
+    const data = await getDocs(chansonsCollectionRef);
+    setChansons(data.docs.map((doc) => ({ ...doc.data(), id: doc.titre })));
+  };
   const createChanson = async () => {
     await setDoc(
       doc(database, "chansons", `${newCanalMidi}-${newProgramMidi}`),
@@ -29,12 +36,16 @@ function PageChansons() {
         programMidi: newProgramMidi,
       }
     );
+    getChansons();
+  };
+
+  const deleteChanson = async (id) => {
+    // console.log("delete-chanson", id);
+    const chansonDoc = doc(database, "chansons", id);
+    await deleteDoc(chansonDoc);
+    getChansons();
   };
   useEffect(() => {
-    const getChansons = async () => {
-      const data = await getDocs(chansonsCollectionRef);
-      setChansons(data.docs.map((doc) => ({ ...doc.data(), id: doc.titre })));
-    };
     getChansons();
   }, []);
   return (
@@ -43,27 +54,21 @@ function PageChansons() {
         type="button"
         className="btn btn-success"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target="#creationChansonModal"
       >
         Créer une nouvelle chanson
       </button>
-      <div>
-        {chansons.map((chanson) => (
-          <Chanson key={chanson.titre} chanson={chanson} />
-        ))}
-      </div>
-
       <div
         className="modal fade"
-        id="exampleModal"
+        id="creationChansonModal"
         tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="creationChansonModal"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
+              <h5 className="modal-title" id="creationChansonModal">
                 Créer une nouvelle Chanson.
               </h5>
               <button
@@ -182,6 +187,15 @@ function PageChansons() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        {chansons.map((chanson) => (
+          <Chanson
+            key={chanson.titre}
+            chanson={chanson}
+            handleDeleteChanson={deleteChanson}
+          />
+        ))}
       </div>
     </div>
   );
