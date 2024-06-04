@@ -7,6 +7,7 @@ import {
   getDocs,
   doc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { database } from "../firebase-config";
 
@@ -38,13 +39,25 @@ function PageChansons() {
     );
     getChansons();
   };
+  // const updateChanson = async (id) => {
+  //   const chansonDoc = doc(database, "chansons", id);
+  //   const newFields = {
+  //     // artiste: newArtiste,
+  //     // titre: newTitre,
+  //     // dateDeSortie: newDateDeSortie,
+  //     vignette: newVignette,
+  //     // canalMidi: newCanalMidi,
+  //     // programMidi: newProgramMidi,
+  //   };
+  //   await updateDoc(chansonDoc, newFields);
+  // };
+  // const deleteChanson = async (seletedChanson) => {
+  //   console.log("delete-chanson", seletedChanson);
+  //   // const chansonDoc = doc(database, "chansons", id);
+  //   // await deleteDoc(chansonDoc);
+  //   // getChansons();
+  // };
 
-  const deleteChanson = async (id) => {
-    // console.log("delete-chanson", id);
-    const chansonDoc = doc(database, "chansons", id);
-    await deleteDoc(chansonDoc);
-    getChansons();
-  };
   useEffect(() => {
     getChansons();
   }, []);
@@ -61,8 +74,10 @@ function PageChansons() {
       <div
         className="modal fade"
         id="creationChansonModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
         tabIndex="-1"
-        aria-labelledby="creationChansonModal"
+        aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
@@ -188,12 +203,14 @@ function PageChansons() {
           </div>
         </div>
       </div>
+
       <div>
         {chansons.map((chanson) => (
           <Chanson
             key={chanson.titre}
             chanson={chanson}
-            handleDeleteChanson={deleteChanson}
+            // handleDeleteChanson={deleteChanson}
+            // handleModifyChanson={updateChanson}
           />
         ))}
       </div>
