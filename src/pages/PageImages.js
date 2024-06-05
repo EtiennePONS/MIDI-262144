@@ -1,16 +1,29 @@
 import { collection, getDocs } from "firebase/firestore";
 import { database } from "../firebase-config";
 import { useEffect, useState } from "react";
+import { storage } from "../firebase-config";
+import { ref, uploadBytes } from "firebase/storage";
 
 function PageImage() {
+  const [imageUpload, setImageUpload] = useState(null);
   const chansonsCollectionRef = collection(database, "chansons");
-
+  const [chansonSelected, setChansonSelected] = useState("");
   const [chansons, setChansons] = useState([]);
 
   const getChansons = async () => {
     const data = await getDocs(chansonsCollectionRef);
+
     setChansons(data.docs.map((doc) => ({ ...doc.data(), id: doc.titre })));
   };
+
+  const uploadPDF = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `${chansonSelected}/${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
+      alert("Image Uploaded");
+    });
+  };
+
   useEffect(() => {
     getChansons();
   }, []);
@@ -51,30 +64,40 @@ function PageImage() {
             <div className="modal-body">
               <div className="mb-3"></div>
               <div className="mb-3">
+                <label htmlFor="inputChansonForImage" className="form-label">
+                  Choisissez la chanson à configurer
+                </label>
                 <select
                   name="chanson"
                   className="form-select"
                   aria-label="Floating label select example"
                   defaultValue=""
-                  id="inputGroupSelect01"
-                  // onChange={(e) => handleChansonSelectPourCreationVisuel(e)}
+                  id="inputChansonForImage"
+                  onChange={(event) => {
+                    setChansonSelected(event.target.value);
+                  }}
                 >
                   <option value="Liste de chansons"></option>
                   {chansons.map((chanson) => {
                     return (
-                      <option key={chanson.titre} value={chanson.titre}>
-                        {chanson.titre}
+                      <option key={chanson.titre}>
+                        canal-{chanson.canalMidi}/{chanson.titre}
                       </option>
                     );
                   })}
                 </select>
               </div>
               <div className="mb-3">
+                <label htmlFor="inputFilesForImage" className="form-label">
+                  Importez vos fichier pdf, exemple: "Charlie Brown-C0.pdf"
+                </label>
                 <input
                   className="form-control"
                   type="file"
-                  id="formFileMultiple"
-                  multiple
+                  id="inputFilesForImage"
+                  onChange={(event) => {
+                    setImageUpload(event.target.files[0]);
+                  }}
                 />
               </div>
             </div>
@@ -86,7 +109,11 @@ function PageImage() {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={uploadPDF}
+              >
                 Save changes
               </button>
             </div>
