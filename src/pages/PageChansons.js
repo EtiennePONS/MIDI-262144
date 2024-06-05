@@ -36,7 +36,9 @@ function PageChansons() {
         canalMidi: newCanalMidi,
         programMidi: newProgramMidi,
       }
-    );
+    ).then(() => {
+      alert(`la chanson "${newTitre}" a bien été créé... 😊 `);
+    });
     getChansons();
   };
   // const updateChanson = async (id) => {

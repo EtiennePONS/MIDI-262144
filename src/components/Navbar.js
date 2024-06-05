@@ -49,23 +49,38 @@ function Navbar({ theGivenTitle }) {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              {" "}
-              <li className="nav-item">
+              <li
+                className="nav-item"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
                 <NavLink to="MIDI-262144/" end className="nav-link">
                   <span className="nav-link">Home</span>
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li
+                className="nav-item"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
                 <NavLink to="MIDI-262144/Play" end className="nav-link">
                   <span className="nav-link">Play</span>
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li
+                className="nav-item"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
                 <NavLink to="MIDI-262144/Medias" end className="nav-link">
                   <span className="nav-link">Médias</span>
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li
+                className="nav-item"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
                 <NavLink to="MIDI-262144/Galerie" end className="nav-link">
                   <span className="nav-link">Images</span>
                 </NavLink>

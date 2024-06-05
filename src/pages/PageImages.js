@@ -20,7 +20,7 @@ function PageImage() {
     if (imageUpload == null) return;
     const imageRef = ref(storage, `${chansonSelected}/${imageUpload.name}`);
     uploadBytes(imageRef, imageUpload).then(() => {
-      alert("Image Uploaded");
+      alert("Image Uploaded 😉");
     });
   };
 
@@ -113,6 +113,7 @@ function PageImage() {
                 type="button"
                 className="btn btn-primary"
                 onClick={uploadPDF}
+                data-bs-dismiss="modal"
               >
                 Save changes
               </button>
