@@ -37,9 +37,10 @@ function PageChansons() {
         canalMidi: newCanalMidi,
         programMidi: newProgramMidi,
       }
-    ).then(() => {
-      alert(`la chanson "${newTitre}" a bien été créé... 😊 `);
-    });
+    );
+    // .then(() => {
+    //   alert(`la chanson "${newTitre}" a bien été créé... 😊 `);
+    // });
     getChansons();
   };
   // const updateChanson = async (id) => {
@@ -54,11 +55,16 @@ function PageChansons() {
   //   };
   //   await updateDoc(chansonDoc, newFields);
   // };
-  const deleteChanson = async (seletedChanson) => {
-    console.log("delete-chanson", seletedChanson);
-    // const chansonDoc = doc(database, "chansons", id);
-    // await deleteDoc(chansonDoc);
-    // getChansons();
+  const deleteChanson = async (id, titre) => {
+    if (
+      window.confirm(`Voulez-vous vraiment supprimer la chanson "${titre}" ?`)
+    ) {
+      const chansonDoc = doc(database, "chansons", id);
+      await deleteDoc(chansonDoc).then(() => {
+        getChansons();
+        // alert(`la chanson "${titre}" a bien été supprimée... 😊 `);
+      });
+    }
   };
 
   useEffect(() => {

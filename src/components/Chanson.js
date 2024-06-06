@@ -180,7 +180,7 @@ function Chanson({
             </div>
           </div> */}
 
-          <button
+          {/* <button
             type="button"
             className="btn btn-danger"
             data-bs-toggle="modal"
@@ -197,7 +197,10 @@ function Chanson({
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
           >
-            <div className="modal-dialog modal-dialog-centered">
+            <div
+              id={chanson.titre}
+              className="modal-dialog modal-dialog-centered"
+            >
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="suppressionChansonModal">
@@ -234,7 +237,19 @@ function Chanson({
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => {
+              handleDeleteChanson(
+                `${chanson.canalMidi}-${chanson.programMidi}`,
+                chanson.titre
+              );
+            }}
+          >
+            Danger
+          </button>
         </div>
       </div>
     </div>
