@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import Chanson from "../components/Chanson";
 import "./PageChansons.css";
@@ -53,12 +54,12 @@ function PageChansons() {
   //   };
   //   await updateDoc(chansonDoc, newFields);
   // };
-  // const deleteChanson = async (seletedChanson) => {
-  //   console.log("delete-chanson", seletedChanson);
-  //   // const chansonDoc = doc(database, "chansons", id);
-  //   // await deleteDoc(chansonDoc);
-  //   // getChansons();
-  // };
+  const deleteChanson = async (seletedChanson) => {
+    console.log("delete-chanson", seletedChanson);
+    // const chansonDoc = doc(database, "chansons", id);
+    // await deleteDoc(chansonDoc);
+    // getChansons();
+  };
 
   useEffect(() => {
     getChansons();
@@ -67,7 +68,7 @@ function PageChansons() {
     <div className="body">
       <button
         type="button"
-        className="btn btn-success"
+        className="btn btn-success creationChanson"
         data-bs-toggle="modal"
         data-bs-target="#creationChansonModal"
       >
@@ -206,15 +207,20 @@ function PageChansons() {
         </div>
       </div>
 
-      <div>
-        {chansons.map((chanson) => (
-          <Chanson
-            key={chanson.titre}
-            chanson={chanson}
-            // handleDeleteChanson={deleteChanson}
-            // handleModifyChanson={updateChanson}
-          />
-        ))}
+      <div className="album">
+        {chansons.map((chanson) => {
+          return (
+            <Chanson
+              key={chanson.titre}
+              chanson={chanson}
+              handleDeleteChanson={deleteChanson}
+            />
+          );
+        })}
+        ;
+        {
+          // handleModifyChanson={updateChanson}
+        }
       </div>
     </div>
   );

@@ -2,13 +2,27 @@ import { collection, getDocs } from "firebase/firestore";
 import { database } from "../firebase-config";
 import { useEffect, useState } from "react";
 import { storage } from "../firebase-config";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 
 function PageImage() {
   const [imageUpload, setImageUpload] = useState(null);
   const chansonsCollectionRef = collection(database, "chansons");
   const [chansonSelected, setChansonSelected] = useState("");
   const [chansons, setChansons] = useState([]);
+  const [imageList, setImageList] = useState([]);
+  const imageListRef = ref(storage, "canal-1/Charlie Brown/");
+
+  const getImages = async () => {
+    listAll(imageListRef).then((response) => {
+      console.log(response);
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          console.log(url);
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  };
 
   const getChansons = async () => {
     const data = await getDocs(chansonsCollectionRef);
@@ -25,6 +39,7 @@ function PageImage() {
   };
 
   useEffect(() => {
+    getImages();
     getChansons();
   }, []);
 
@@ -121,6 +136,22 @@ function PageImage() {
           </div>
         </div>
       </div>
+      {imageList.map((url) => {
+        return (
+          <div class="card bg-dark text-white">
+            <img src={url} class="card-img" alt="pdf" />
+            <div class="card-img-overlay">
+              <h5 class="card-title">{}</h5>
+              <p class="card-text">
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </p>
+              <p class="card-text">Last updated 3 mins ago</p>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

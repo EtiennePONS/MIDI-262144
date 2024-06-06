@@ -1,4 +1,5 @@
 import "./Chanson.css";
+import React from "react";
 function Chanson({
   chanson,
   handleDeleteChanson,
@@ -177,7 +178,7 @@ function Chanson({
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <button
             type="button"
@@ -223,10 +224,9 @@ function Chanson({
                   </button>
                   <button
                     type="button"
-                    id={chanson.titre}
                     className="btn btn-danger"
                     onClick={() => {
-                      handleDeleteChanson(chanson.id);
+                      handleDeleteChanson(chanson.programMidi);
                     }}
                   >
                     Supprimer
@@ -234,7 +234,7 @@ function Chanson({
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
