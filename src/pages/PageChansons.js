@@ -8,9 +8,9 @@ import {
   getDocs,
   doc,
   deleteDoc,
-  updateDoc,
 } from "firebase/firestore";
 import { database } from "../firebase-config";
+// import { toast } from "react-toastify";
 
 function PageChansons() {
   const [chansons, setChansons] = useState([]);
@@ -38,33 +38,23 @@ function PageChansons() {
         programMidi: newProgramMidi,
       }
     );
-    // .then(() => {
-    //   alert(`la chanson "${newTitre}" a bien été créé... 😊 `);
-    // });
     getChansons();
   };
-  // const updateChanson = async (id) => {
-  //   const chansonDoc = doc(database, "chansons", id);
-  //   const newFields = {
-  //     // artiste: newArtiste,
-  //     // titre: newTitre,
-  //     // dateDeSortie: newDateDeSortie,
-  //     vignette: newVignette,
-  //     // canalMidi: newCanalMidi,
-  //     // programMidi: newProgramMidi,
-  //   };
-  //   await updateDoc(chansonDoc, newFields);
-  // };
+
   const deleteChanson = async (id, titre) => {
-    if (
-      window.confirm(`Voulez-vous vraiment supprimer la chanson "${titre}" ?`)
-    ) {
-      const chansonDoc = doc(database, "chansons", id);
-      await deleteDoc(chansonDoc).then(() => {
-        getChansons();
-        // alert(`la chanson "${titre}" a bien été supprimée... 😊 `);
-      });
+    const chansonDoc = doc(database, "chansons", id);
+    try {
+      await deleteDoc(chansonDoc);
+      getChansons();
+      // Toast("acticle deleted successfully", { type: "success" });
+    } catch (error) {
+      console.log(error);
     }
+    // const chansonDoc = doc(database, "chansons", id);
+    // await deleteDoc(chansonDoc).then(() => {
+    //   Toast(`la chanson "${titre}" a bien été supprimée... 😊 `);
+    //   getChansons();
+    // });
   };
 
   useEffect(() => {
@@ -198,7 +188,7 @@ function PageChansons() {
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
-                Close
+                Annuler
               </button>
               <button
                 onClick={createChanson}
@@ -223,10 +213,6 @@ function PageChansons() {
             />
           );
         })}
-        ;
-        {
-          // handleModifyChanson={updateChanson}
-        }
       </div>
     </div>
   );

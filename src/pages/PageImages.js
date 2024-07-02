@@ -122,7 +122,7 @@ function PageImage() {
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
-                Close
+                Annuler
               </button>
               <button
                 type="button"
@@ -130,7 +130,7 @@ function PageImage() {
                 onClick={uploadPDF}
                 data-bs-dismiss="modal"
               >
-                Save changes
+                Enregistrer
               </button>
             </div>
           </div>

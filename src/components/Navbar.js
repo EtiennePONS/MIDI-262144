@@ -85,6 +85,15 @@ function Navbar({ theGivenTitle }) {
                   <span className="nav-link">Images</span>
                 </NavLink>
               </li>
+              <li
+                className="nav-item"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
+                <NavLink to="MIDI-262144/Prompteur" end className="nav-link">
+                  <span className="nav-link">Prompteur</span>
+                </NavLink>
+              </li>
             </ul>
             <form className="d-flex mt-3" role="search"></form>
           </div>
