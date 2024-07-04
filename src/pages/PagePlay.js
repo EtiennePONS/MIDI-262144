@@ -71,6 +71,7 @@ function PagePlay({
                     titreChanson = morceau.data().titre;
                     modifyParentStateValue(morceau.data());
                     downloadAndSetImage();
+                    updateVideo(morceau.data().video);
                   } else {
                     console.log("Pas de chanson, sur cette reference...");
                   }
@@ -162,7 +163,10 @@ function PagePlay({
       setupEventHandler();
     }
   }
-
+  function updateVideo(lienvideo) {
+    let source = document.getElementById("mySource");
+    source.setAttribute("src", lienvideo);
+  }
   return (
     <div className="App">
       <header className="App-header">

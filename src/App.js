@@ -40,7 +40,6 @@ function App() {
                 modifyParentStateImage={setImage}
                 modifyParentStateValue={setChanson}
                 theGivenSong={chanson}
-                theGivenImage={image}
               />
             }
           />

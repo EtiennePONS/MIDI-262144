@@ -1,0 +1,14 @@
+.progress {
+  margin-top: 13px;
+  width: 740px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
+}
+.donnees {
+  margin-top: 7px;
+}
+.orange {
+  background-color: #ed756c;
+}
+.pourcentage {
+  margin-top: 6px;
+}

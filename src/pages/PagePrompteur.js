@@ -1,8 +1,9 @@
 import "./PagePrompteur.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { database, storage } from "../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
+import ProgressBar from "../components/ProgressBar";
 let titreChanson;
 
 function PagePrompteur({
@@ -11,6 +12,7 @@ function PagePrompteur({
   theGivenSong,
   theGivenImage,
 }) {
+  const videoRef = useRef(null);
   const [messageFromNavigator, setMessageFromNavigator] = useState("");
 
   let midiAccess = null;
@@ -133,7 +135,13 @@ function PagePrompteur({
           <button onClick={reset}>RESET</button> */}
         </div>
         <img className="vignette" alt="" src={theGivenSong.vignette} />
-        <video className="video" autoplay="autoplay" muted="muted" id="myVideo">
+        <video
+          className="video"
+          autoplay="autoplay"
+          muted="muted"
+          id="myVideo"
+          ref={videoRef}
+        >
           <source
             id="mySource"
             src="https://www.w3schools.com/html/mov_bbb.mp4"
@@ -141,6 +149,7 @@ function PagePrompteur({
             type="video/mp4"
           ></source>
         </video>
+        <ProgressBar className="ProgressBar" reference={videoRef}></ProgressBar>
       </header>
     </div>
   );
