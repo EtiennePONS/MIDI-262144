@@ -1,22 +1,38 @@
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
-import image from "../logo/favicon.ico";
+import imageMidi from "../logo/favicon.ico";
+import imageBluetooth from "../logo/bluetooth.png";
+import imageWifi from "../logo/wifi.png";
 
 function Navbar({ theGivenTitle }) {
   return (
     <nav className="navbar navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
-        {/* <NavLink to="MIDI-262144/Play" end className="nav-link"> */}
-        <img
-          src={image}
-          alt="LOGO"
-          width="50"
-          height="50"
-          className="d-inline-block align-text-top"
-        />
-        {/* </NavLink> */}
+        <div>
+          <img
+            src={imageMidi}
+            alt="LOGO"
+            width="51"
+            height="51"
+            className="d-inline-block align-text-top midi"
+          />
+          <img
+            src={imageBluetooth}
+            alt="LOGO"
+            className="d-inline-block align-text-top bluetooth"
+            width="50"
+            height="50"
+          />
+          <img
+            src={imageWifi}
+            alt="LOGO"
+            className="d-inline wifi align-text-top"
+            width="50"
+            height="50"
+          />
+        </div>
 
-        <span className="navbar-text fw-bold fs-4 text-uppercase">
+        <span className="navbar-text fw-bold fs-4 text-uppercase titre">
           {theGivenTitle}
         </span>
 
@@ -67,24 +83,7 @@ function Navbar({ theGivenTitle }) {
                   <span className="nav-link">Pdf</span>
                 </NavLink>
               </li>
-              {/* <li
-                className="nav-item"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              >
-                <NavLink to="MIDI-262144/Medias" end className="nav-link">
-                  <span className="nav-link">Médias</span>
-                </NavLink>
-              </li> */}
-              {/* <li
-                className="nav-item"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              >
-                <NavLink to="MIDI-262144/Galerie" end className="nav-link">
-                  <span className="nav-link">Images</span>
-                </NavLink>
-              </li> */}
+
               <li
                 className="nav-item"
                 data-bs-dismiss="offcanvas"

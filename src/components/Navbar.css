@@ -1,3 +1,13 @@
 .navbar-text {
   color: white;
 }
+.bluetooth {
+  margin-right: 10px;
+  border-radius: 16px;
+}
+.wifi {
+  border-radius: 16px;
+}
+.midi {
+  margin-right: 9px;
+}

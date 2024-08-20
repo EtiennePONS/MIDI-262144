@@ -29,8 +29,6 @@ function App() {
               />
             }
           />
-          {/* <Route path="MIDI-262144/Medias" element={<Chansons />} /> */}
-          {/* <Route path="MIDI-262144/Galerie" element={<Images />} /> */}
           <Route
             path="MIDI-262144/Prompteur"
             element={

@@ -45,7 +45,6 @@ function PagePlay({
       // setMessageFromNavigator(
       //   "SUPER!!! Ce navigateur est en capacité de recevoir et d'envoyer des signaux numériques MIDI... 😊"
       // );
-
       midiAccess = access;
       midiAccess.onstatechange = function (event) {
         if (event.port.type === "input") {
@@ -172,8 +171,6 @@ function PagePlay({
       <header className="App-header">
         <div className="cartouche">
           <dl className="row">
-            {/* <dt className="h6 col-sm-3">Titre:</dt>
-            <dd class="h6 col-sm-9">{chansonAAfficher.titre}</dd> */}
             <dt className="h6 col-sm-3">Artiste:</dt>
             <dd className="h6 col-sm-9">{theGivenSong.artiste}</dd>
             <dt className="h6 col-sm-3">Date:</dt>
@@ -183,8 +180,6 @@ function PagePlay({
             <dt className="h6 col-sm-3">Pgm(1-128):</dt>
             <dd className="h6 col-sm-9"> {theGivenSong.programMidi}</dd>
           </dl>
-          {/* <h1>{messageFromNavigator}</h1>
-          <button onClick={reset}>RESET</button> */}
         </div>
         <img className="vignette" alt="" src={theGivenSong.vignette} />
 
