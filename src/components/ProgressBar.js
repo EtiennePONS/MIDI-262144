@@ -28,7 +28,6 @@ function VideoPlayer({ reference }) {
 
   return (
     <div>
-      {" "}
       <div className="progress progress-fat" style={{ height: `30px` }}>
         <div
           className="progress-bar progress-bar-striped orange "
@@ -38,11 +37,10 @@ function VideoPlayer({ reference }) {
           aria-valuemax="100"
         >
           <h5 className="pourcentage">
-            {" "}
             {Math.round((currentTime / duration) * 100)}%
           </h5>
         </div>
-      </div>{" "}
+      </div>
       <p className="donnees">
         {formatTime(currentTime)} / {formatTime(duration)}
       </p>

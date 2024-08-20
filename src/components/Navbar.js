@@ -6,15 +6,15 @@ function Navbar({ theGivenTitle }) {
   return (
     <nav className="navbar navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
-        <NavLink to="MIDI-262144/Play" end className="nav-link">
-          <img
-            src={image}
-            alt="LOGO"
-            width="50"
-            height="50"
-            className="d-inline-block align-text-top"
-          />
-        </NavLink>
+        {/* <NavLink to="MIDI-262144/Play" end className="nav-link"> */}
+        <img
+          src={image}
+          alt="LOGO"
+          width="50"
+          height="50"
+          className="d-inline-block align-text-top"
+        />
+        {/* </NavLink> */}
 
         <span className="navbar-text fw-bold fs-4 text-uppercase">
           {theGivenTitle}
@@ -64,10 +64,10 @@ function Navbar({ theGivenTitle }) {
                 aria-label="Close"
               >
                 <NavLink to="MIDI-262144/Play" end className="nav-link">
-                  <span className="nav-link">Play</span>
+                  <span className="nav-link">Pdf</span>
                 </NavLink>
               </li>
-              <li
+              {/* <li
                 className="nav-item"
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
@@ -75,8 +75,8 @@ function Navbar({ theGivenTitle }) {
                 <NavLink to="MIDI-262144/Medias" end className="nav-link">
                   <span className="nav-link">Médias</span>
                 </NavLink>
-              </li>
-              <li
+              </li> */}
+              {/* <li
                 className="nav-item"
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
@@ -84,14 +84,14 @@ function Navbar({ theGivenTitle }) {
                 <NavLink to="MIDI-262144/Galerie" end className="nav-link">
                   <span className="nav-link">Images</span>
                 </NavLink>
-              </li>
+              </li> */}
               <li
                 className="nav-item"
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
               >
                 <NavLink to="MIDI-262144/Prompteur" end className="nav-link">
-                  <span className="nav-link">Prompteur</span>
+                  <span className="nav-link">Vidéo</span>
                 </NavLink>
               </li>
             </ul>
