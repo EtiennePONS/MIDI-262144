@@ -1,4 +1,5 @@
 import "./PageHome.css";
+
 function PageHome() {
   return (
     <div className="body">
@@ -18,6 +19,9 @@ function PageHome() {
           performances visuelles et musicales.
         </p>
       </div>
+      {/* <div className="container">
+        <img className="imageHome" src={imagePad} alt="LOGO" />
+      </div> */}
     </div>
   );
 }

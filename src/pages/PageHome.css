@@ -1,18 +1,24 @@
 .body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
+  background-image: url("../logo/FondEcran.WEBP");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #333;
-  padding: 20px;
+  padding: 30px;
   line-height: 1.6;
   margin-top: 66px;
+  height: 100%;
 }
 .container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 50% auto;
+
   background-color: #ffffff;
+  opacity: 0.95;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }
 h1 {
   color: #2c3e50;
