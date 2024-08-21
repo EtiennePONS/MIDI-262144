@@ -54,7 +54,7 @@ function Navbar({ theGivenTitle }) {
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
-              MIDI-20480
+              MIDI-262144
             </h5>
             <button
               type="button"

@@ -100,36 +100,393 @@ function PagePlay({
 
               if (command === 0x9) {
                 let note = data[1] + 1; // j'ajoute 1 à deuxiemeOctet pour me situer entre (1-128) au lieu de (0-127).
-                // console.log(
-                //   `Canal MIDI: ${channel}, Chanson: ${titreChanson}  , Note MIDI: ${note}`
-                // );
+                console.log(
+                  `Canal MIDI: ${channel}, Chanson: ${titreChanson}  , Note MIDI: ${note}`
+                );
                 switch (note) {
+                  case 1:
+                    note = "C-2";
+                    break;
+                  case 2:
+                    note = "C#-2";
+                    break;
+                  case 3:
+                    note = "D-2";
+                    break;
+                  case 4:
+                    note = "D#-2";
+                    break;
+                  case 5:
+                    note = "E-2";
+                    break;
+                  case 6:
+                    note = "F-2";
+                    break;
+                  case 7:
+                    note = "F#-2";
+                    break;
+                  case 8:
+                    note = "G-2";
+                    break;
+                  case 9:
+                    note = "G#-2";
+                    break;
+                  case 10:
+                    note = "A-2";
+                    break;
+                  case 11:
+                    note = "A#-2";
+                    break;
+                  case 12:
+                    note = "B-2";
+                    break;
+                  case 13:
+                    note = "C-1";
+                    break;
+                  case 14:
+                    note = "C#-1";
+                    break;
+                  case 15:
+                    note = "D-1";
+                    break;
+                  case 16:
+                    note = "D#-1";
+                    break;
+                  case 17:
+                    note = "E-1";
+                    break;
+                  case 18:
+                    note = "F-1";
+                    break;
+                  case 19:
+                    note = "F#-1";
+                    break;
+                  case 20:
+                    note = "G-1";
+                    break;
+                  case 21:
+                    note = "G#-1";
+                    break;
+                  case 22:
+                    note = "A-1";
+                    break;
+                  case 23:
+                    note = "A#-1";
+                    break;
+                  case 24:
+                    note = "B-1";
+                    break;
                   case 25:
                     note = "C0";
+                    break;
+                  case 26:
+                    note = "C#0";
+                    break;
+                  case 27:
+                    note = "D0";
+                    break;
+                  case 28:
+                    note = "D#0";
+                    break;
+                  case 29:
+                    note = "E0";
+                    break;
+                  case 30:
+                    note = "F0";
+                    break;
+                  case 31:
+                    note = "F#0";
+                    break;
+                  case 32:
+                    note = "G0";
+                    break;
+                  case 33:
+                    note = "G#0";
+                    break;
+                  case 34:
+                    note = "A0";
+                    break;
+                  case 35:
+                    note = "A#0";
+                    break;
+                  case 36:
+                    note = "B0";
                     break;
                   case 37:
                     note = "C1";
                     break;
+                  case 38:
+                    note = "C#1";
+                    break;
+                  case 39:
+                    note = "D1";
+                    break;
+                  case 40:
+                    note = "D#1";
+                    break;
+                  case 41:
+                    note = "E1";
+                    break;
+                  case 42:
+                    note = "F1";
+                    break;
+                  case 43:
+                    note = "F#1";
+                    break;
+                  case 44:
+                    note = "G1";
+                    break;
+                  case 45:
+                    note = "G#1";
+                    break;
+                  case 46:
+                    note = "A1";
+                    break;
+                  case 47:
+                    note = "A#1";
+                    break;
+                  case 48:
+                    note = "B1";
+                    break;
                   case 49:
                     note = "C2";
+                    break;
+                  case 50:
+                    note = "C#2";
+                    break;
+                  case 51:
+                    note = "D2";
+                    break;
+                  case 52:
+                    note = "D#2";
+                    break;
+                  case 53:
+                    note = "E2";
+                    break;
+                  case 54:
+                    note = "F2";
+                    break;
+                  case 55:
+                    note = "F#2";
+                    break;
+                  case 56:
+                    note = "G2";
+                    break;
+                  case 57:
+                    note = "G#2";
+                    break;
+                  case 58:
+                    note = "A2";
+                    break;
+                  case 59:
+                    note = "A#2";
+                    break;
+                  case 60:
+                    note = "B2";
                     break;
                   case 61:
                     note = "C3";
                     break;
+                  case 62:
+                    note = "C#3";
+                    break;
+                  case 63:
+                    note = "D3";
+                    break;
+                  case 64:
+                    note = "D#3";
+                    break;
+                  case 65:
+                    note = "E3";
+                    break;
+                  case 66:
+                    note = "F3";
+                    break;
+                  case 67:
+                    note = "F#3";
+                    break;
+                  case 68:
+                    note = "G3";
+                    break;
+                  case 69:
+                    note = "G#3";
+                    break;
+                  case 70:
+                    note = "A3";
+                    break;
+                  case 71:
+                    note = "A#3";
+                    break;
+                  case 72:
+                    note = "B3 ";
+                    break;
                   case 73:
                     note = "C4";
+                    break;
+                  case 74:
+                    note = "C#4";
+                    break;
+                  case 75:
+                    note = "D4";
+                    break;
+                  case 76:
+                    note = "D#4";
+                    break;
+                  case 77:
+                    note = "E4";
+                    break;
+                  case 78:
+                    note = "F4";
+                    break;
+                  case 79:
+                    note = "F#4";
+                    break;
+                  case 80:
+                    note = "G4";
+                    break;
+                  case 81:
+                    note = "G#4";
+                    break;
+                  case 82:
+                    note = "A4";
+                    break;
+                  case 83:
+                    note = "A#4";
+                    break;
+                  case 84:
+                    note = "B4";
                     break;
                   case 85:
                     note = "C5";
                     break;
+                  case 86:
+                    note = "C#5";
+                    break;
+                  case 87:
+                    note = "D5";
+                    break;
+                  case 88:
+                    note = "D#5";
+                    break;
+                  case 89:
+                    note = "E5";
+                    break;
+                  case 90:
+                    note = "F5";
+                    break;
+                  case 91:
+                    note = "F#5";
+                    break;
+                  case 92:
+                    note = "G5";
+                    break;
+                  case 93:
+                    note = "G#5";
+                    break;
+                  case 94:
+                    note = "A5";
+                    break;
+                  case 95:
+                    note = "A#5";
+                    break;
+                  case 96:
+                    note = "B5";
+                    break;
                   case 97:
                     note = "C6";
+                    break;
+                  case 98:
+                    note = "C#6";
+                    break;
+                  case 99:
+                    note = "D6";
+                    break;
+                  case 100:
+                    note = "D#6";
+                    break;
+                  case 101:
+                    note = "E6";
+                    break;
+                  case 102:
+                    note = "F6";
+                    break;
+                  case 103:
+                    note = "F#6";
+                    break;
+                  case 104:
+                    note = "G6";
+                    break;
+                  case 105:
+                    note = "G#6";
+                    break;
+                  case 106:
+                    note = "A6";
+                    break;
+                  case 107:
+                    note = "A#6";
+                    break;
+                  case 108:
+                    note = "B6";
                     break;
                   case 109:
                     note = "C7";
                     break;
+                  case 110:
+                    note = "C#7";
+                    break;
+                  case 111:
+                    note = "D7";
+                    break;
+                  case 112:
+                    note = "D#7";
+                    break;
+                  case 113:
+                    note = "E7";
+                    break;
+                  case 114:
+                    note = "F7";
+                    break;
+                  case 115:
+                    note = "F#7";
+                    break;
+                  case 116:
+                    note = "G7";
+                    break;
+                  case 117:
+                    note = "G#7";
+                    break;
+                  case 118:
+                    note = "A7";
+                    break;
+                  case 119:
+                    note = "A#7";
+                    break;
+                  case 120:
+                    note = "B7";
+                    break;
                   case 121:
                     note = "C8";
+                    break;
+                  case 122:
+                    note = "C#8";
+                    break;
+                  case 123:
+                    note = "D8";
+                    break;
+                  case 124:
+                    note = "D#8";
+                    break;
+                  case 125:
+                    note = "E8";
+                    break;
+                  case 126:
+                    note = "F8";
+                    break;
+                  case 127:
+                    note = "F#8";
+                    break;
+                  case 128:
+                    note = "G8";
                     break;
 
                   default:
