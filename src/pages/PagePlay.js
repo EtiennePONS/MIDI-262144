@@ -13,6 +13,7 @@ function PagePlay({
 }) {
   const [messageFromNavigator, setMessageFromNavigator] = useState("");
   let midiAccess = null;
+  const [midiOutput, setMidiOutput] = useState(null);
 
   useEffect(() => {
     setup();
@@ -46,6 +47,9 @@ function PagePlay({
       //   "SUPER!!! Ce navigateur est en capacité de recevoir et d'envoyer des signaux numériques MIDI... 😊"
       // );
       midiAccess = access;
+      midiAccess.outputs.forEach((output) => {
+        setMidiOutput(output); // Enregistre la première sortie MIDI
+      });
       midiAccess.onstatechange = function (event) {
         if (event.port.type === "input") {
           event.port.onmidimessage = function (event) {
@@ -523,10 +527,24 @@ function PagePlay({
     let source = document.getElementById("mySource");
     source.setAttribute("src", lienvideo);
   }
+  const sendMIDIMessage = (message) => {
+    if (midiOutput) {
+      midiOutput.send(message);
+      console.log(`MIDI message sent: ${message}`);
+    } else {
+      console.error("No MIDI output available.");
+    }
+  };
+  const handleSendCC117 = () => {
+    sendMIDIMessage([0xb0, 117, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale
+  };
+  const handleSendCC118 = () => {
+    sendMIDIMessage([0xb0, 118, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale
+  };
   return (
     <div className="App">
       <header className="App-header">
-        <div className="cartouche">
+        <div className="cartouche" onClick={handleSendCC118}>
           <dl className="row">
             <dt className="h6 col-sm-3">Artiste:</dt>
             <dd className="h6 col-sm-9">{theGivenSong.artiste}</dd>
@@ -538,7 +556,12 @@ function PagePlay({
             <dd className="h6 col-sm-9"> {theGivenSong.programMidi}</dd>
           </dl>
         </div>
-        <img className="vignette" alt="" src={theGivenSong.vignette} />
+        <img
+          onClick={handleSendCC117}
+          className="vignette"
+          alt=""
+          src={theGivenSong.vignette}
+        />
 
         <object className="pdf" title="app/pdf" data={theGivenImage}></object>
       </header>
