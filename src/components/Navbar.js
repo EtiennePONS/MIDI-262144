@@ -1,38 +1,11 @@
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
-import imageMidi from "../logo/favicon.ico";
-import imageBluetooth from "../logo/bluetooth.png";
-import imageWifi from "../logo/wifi.png";
 
 function Navbar({ theGivenTitle }) {
   return (
     <nav className="navbar navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
-        <div>
-          <img
-            src={imageMidi}
-            alt="LOGO"
-            width="51"
-            height="51"
-            className="d-inline-block align-text-top midi"
-          />
-          <img
-            src={imageBluetooth}
-            alt="LOGO"
-            className="d-inline-block align-text-top bluetooth"
-            width="50"
-            height="50"
-          />
-          <img
-            src={imageWifi}
-            alt="LOGO"
-            className="d-inline wifi align-text-top"
-            width="50"
-            height="50"
-          />
-        </div>
-
-        <span className="navbar-text fw-bold fs-4 text-uppercase titre">
+        <span className="navbar-text fw-bold fs-4 text-uppercase">
           {theGivenTitle}
         </span>
 

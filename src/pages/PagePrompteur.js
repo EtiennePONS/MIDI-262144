@@ -4,6 +4,7 @@ import { database, storage } from "../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 import ProgressBar from "../components/ProgressBar";
+import Transport from "../components/Transport";
 let titreChanson;
 
 function PagePrompteur({
@@ -13,9 +14,9 @@ function PagePrompteur({
   theGivenImage,
 }) {
   const videoRef = useRef(null);
-  const [messageFromNavigator, setMessageFromNavigator] = useState("");
-
+  const messageFromNavigator = "";
   let midiAccess = null;
+  const [midiOutput, setMidiOutput] = useState(null);
 
   useEffect(() => {
     setup();
@@ -25,7 +26,7 @@ function PagePrompteur({
     if (window.navigator.requestMIDIAccess) {
       window.navigator.requestMIDIAccess({ sysex: false }).then(success);
     } else {
-      setMessageFromNavigator(
+      messageFromNavigator(
         "Connection IMPOSSIBLE: Ce navigateur n'est pas en capacité de recevoir et d'envoyer des signaux numériques MIDI... 🙄"
       );
     }
@@ -50,6 +51,9 @@ function PagePrompteur({
       // );
 
       midiAccess = access;
+      midiAccess.outputs.forEach((output) => {
+        setMidiOutput(output); // Enregistre la première sortie MIDI
+      });
       midiAccess.onstatechange = function (event) {
         if (event.port.type === "input") {
           event.port.onmidimessage = function (event) {
@@ -114,7 +118,26 @@ function PagePrompteur({
     video.load();
     video.play();
   }
-
+  const sendMIDIMessage = (message) => {
+    if (midiOutput) {
+      midiOutput.send(message);
+      console.log(`MIDI message sent: ${message}`);
+    } else {
+      console.error("No MIDI output available.");
+    }
+  };
+  const handleSendCC116 = () => {
+    sendMIDIMessage([0xb0, 116, 127]); // 0xB0 = statut pour Control Change, 116 = numéro de contrôle, 127 = valeur maximale (fonction PRECEDENT)
+  };
+  const handleSendCC117 = () => {
+    sendMIDIMessage([0xb0, 117, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale (fonction STOP)
+  };
+  const handleSendCC118 = () => {
+    sendMIDIMessage([0xb0, 118, 127]); // 0xB0 = statut pour Control Change, 118 = numéro de contrôle, 127 = valeur maximale (fonction PLAY)
+  };
+  const handleSendCC119 = () => {
+    sendMIDIMessage([0xb0, 119, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale (fonction STOP)
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -137,7 +160,7 @@ function PagePrompteur({
         <img className="vignette" alt="" src={theGivenSong.vignette} />
         <video
           className="video"
-          autoplay="autoplay"
+          autoPlay="autoplay"
           muted="muted"
           id="myVideo"
           ref={videoRef}
@@ -151,6 +174,12 @@ function PagePrompteur({
         </video>
         <ProgressBar className="ProgressBar" reference={videoRef}></ProgressBar>
       </header>
+      <Transport
+        precedent={handleSendCC116}
+        stop={handleSendCC117}
+        play={handleSendCC118}
+        suivant={handleSendCC119}
+      />
     </div>
   );
 }

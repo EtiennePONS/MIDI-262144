@@ -1,0 +1,31 @@
+.transport {
+  border-radius: 10px;
+  margin: auto;
+  background-color: #212529;
+  padding: 10px;
+  width: 740px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
+}
+.btn-lg {
+  width: 110px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.play {
+  background-color: #ede26c;
+}
+.precedent {
+  /* background-color: #6d454c; */
+  background-color: #6c72ed;
+}
+.stop {
+  background-color: #ed756c;
+}
+.suivant {
+  background-color: #6ced8a;
+}
+
+.logo {
+  margin-left: 10px;
+  margin-bottom: 3px;
+}

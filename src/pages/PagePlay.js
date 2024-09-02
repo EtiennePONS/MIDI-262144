@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { database, storage } from "../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
+import Transport from "../components/Transport";
 let titreChanson;
 
 function PagePlay({
@@ -11,7 +12,7 @@ function PagePlay({
   theGivenSong,
   theGivenImage,
 }) {
-  const [messageFromNavigator, setMessageFromNavigator] = useState("");
+  const messageFromNavigator = "";
   let midiAccess = null;
   const [midiOutput, setMidiOutput] = useState(null);
 
@@ -23,7 +24,7 @@ function PagePlay({
     if (window.navigator.requestMIDIAccess) {
       window.navigator.requestMIDIAccess({ sysex: false }).then(success);
     } else {
-      setMessageFromNavigator(
+      messageFromNavigator(
         "Connection IMPOSSIBLE: Ce navigateur n'est pas en capacité de recevoir et d'envoyer des signaux numériques MIDI... 🙄"
       );
     }
@@ -43,16 +44,19 @@ function PagePlay({
     }
 
     function success(access) {
-      // setMessageFromNavigator(
+      // console.log(
       //   "SUPER!!! Ce navigateur est en capacité de recevoir et d'envoyer des signaux numériques MIDI... 😊"
       // );
+      // console.log(access);
       midiAccess = access;
       midiAccess.outputs.forEach((output) => {
+        // console.log(output);
         setMidiOutput(output); // Enregistre la première sortie MIDI
       });
       midiAccess.onstatechange = function (event) {
         if (event.port.type === "input") {
           event.port.onmidimessage = function (event) {
+            console.log(event.data);
             const data = event.data;
             if (data.length === 2) {
               let command = data[0] >>> 4; // command est le quatrieme bit du premier octet "data".
@@ -535,16 +539,34 @@ function PagePlay({
       console.error("No MIDI output available.");
     }
   };
+  const handleSendCC65On = () => {
+    sendMIDIMessage([0xb0, 65, 127]); // 0xB0 = statut pour Control Change, 65 = numéro de contrôle, 127 = valeur maximale (fonction SUIVI Activée)
+  };
+  const handleSendCC65Off = () => {
+    sendMIDIMessage([0xb0, 65, 0]); // 0xB0 = statut pour Control Change, 65 = numéro de contrôle, 0 = valeur minimale (fonction SUIVI Désactivée)
+  };
+  const handleSendCC116 = () => {
+    sendMIDIMessage([0xb0, 116, 127]); // 0xB0 = statut pour Control Change, 116 = numéro de contrôle, 127 = valeur maximale (fonction PRECEDENT)
+  };
   const handleSendCC117 = () => {
-    sendMIDIMessage([0xb0, 117, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale
+    sendMIDIMessage([0xb0, 117, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale (fonction STOP)
   };
   const handleSendCC118 = () => {
-    sendMIDIMessage([0xb0, 118, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale
+    sendMIDIMessage([0xb0, 118, 127]); // 0xB0 = statut pour Control Change, 118 = numéro de contrôle, 127 = valeur maximale (fonction PLAY)
+  };
+  const handleSendCC119 = () => {
+    sendMIDIMessage([0xb0, 119, 127]); // 0xB0 = statut pour Control Change, 117 = numéro de contrôle, 127 = valeur maximale (fonction STOP)
+  };
+  const handleSendCC64On = () => {
+    sendMIDIMessage([0xb0, 64, 127]); // 0xB0 = statut pour Control Change, 64 = numéro de contrôle, 127 = valeur maximale (fonction METRONOME Activée)
+  };
+  const handleSendCC64Off = () => {
+    sendMIDIMessage([0xb0, 64, 0]); // 0xB0 = statut pour Control Change, 64 = numéro de contrôle, 0 = valeur minimale (fonction METRONOME Désactivée)
   };
   return (
     <div className="App">
       <header className="App-header">
-        <div className="cartouche" onClick={handleSendCC118}>
+        <div className="cartouche">
           <dl className="row">
             <dt className="h6 col-sm-3">Artiste:</dt>
             <dd className="h6 col-sm-9">{theGivenSong.artiste}</dd>
@@ -556,15 +578,20 @@ function PagePlay({
             <dd className="h6 col-sm-9"> {theGivenSong.programMidi}</dd>
           </dl>
         </div>
-        <img
-          onClick={handleSendCC117}
-          className="vignette"
-          alt=""
-          src={theGivenSong.vignette}
-        />
+        <img className="vignette" alt="" src={theGivenSong.vignette} />
 
         <object className="pdf" title="app/pdf" data={theGivenImage}></object>
       </header>
+      <Transport
+        suiviOn={handleSendCC65On}
+        suiviOff={handleSendCC65Off}
+        precedent={handleSendCC116}
+        stop={handleSendCC117}
+        play={handleSendCC118}
+        suivant={handleSendCC119}
+        clickOn={handleSendCC64On}
+        clickOff={handleSendCC64Off}
+      />
     </div>
   );
 }
